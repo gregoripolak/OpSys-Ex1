@@ -3,7 +3,9 @@ struct stat;
 // system calls
 int fork(void);
 int exit(void) __attribute__((noreturn));
+int exit2(int status) __attribute__((noreturn)); // ex1-q3
 int wait(void);
+int wait2(int *status); // ex1-q3
 int pipe(int*);
 int write(int, void*, int);
 int read(int, void*, int);

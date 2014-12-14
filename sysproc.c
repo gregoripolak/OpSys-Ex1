@@ -19,11 +19,38 @@ sys_exit(void)
   return 0;  // not reached
 }
 
+int				 //ex1-q3
+sys_exit2(void)
+{
+	int status;
+	
+	if (argint(0,&status) <0)
+		return -1;
+
+	exit2(status);	
+	return 0;  // not reached
+}
+
+
+
+
 int
 sys_wait(void)
 {
   return wait();
 }
+
+int              //ex1-q3
+sys_wait2(void)
+{
+	int* status;
+	
+  if (argptr(0, (char**)&status, 4) < 0)
+	  return -1;
+
+  return wait2(status);
+}
+
 
 int
 sys_kill(void)

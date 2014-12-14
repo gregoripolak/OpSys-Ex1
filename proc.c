@@ -203,10 +203,25 @@ exit(void)
   panic("zombie exit");
 }
 
+int
+exit2(int status) {
+	proc->exit_status = status;
+	
+	exit();
+	return 0; // Not reached
+}
+
 // Wait for a child process to exit and return its pid.
 // Return -1 if this process has no children.
 int
-wait(void)
+wait(void) {
+	int status;
+	
+	return wait2(&status);
+}
+
+int
+wait2(int *status)
 {
   struct proc *p;
   int havekids, pid;
@@ -230,6 +245,8 @@ wait(void)
         p->parent = 0;
         p->name[0] = 0;
         p->killed = 0;
+		*status = p->exit_status;
+		p->exit_status = 0;
         release(&ptable.lock);
         return pid;
       }
